@@ -6,12 +6,19 @@ spring:
     gateway:
       routes:
         - id: authuser-service
-          uri: http://localhost:8082/
+          uri: lb://ead-authuser-service
           predicates:
             - Path=/ead-authuser/**
         - id: course-service
-          uri: http://localhost:8087/
+          uri: lb://ead-course-service
           predicates:
             - Path=/ead-course/**
   application:
     name: ead-api-gateway
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: 'http://localhost:8761/eureka'
+  instance:
+    hostname: localhost
